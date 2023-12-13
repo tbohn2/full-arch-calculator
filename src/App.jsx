@@ -103,12 +103,29 @@ function App() {
   const updateCost = (cost, event) => {
     const { name, checked } = event.target;
     setCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
+    updateCheckedItems(name, checked, cost);
   }
 
   useEffect(() => {
     const newTotal = costState.treatmentPlanning + costState.sedation + costState.removal + costState.foundation + costState.specialProcedure + costState.implants + costState.abutments + costState.finalSmile + costState.hygieneVisits + costState.warranty;
     setTotal(newTotal);
   }, [costState]);
+
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  const updateCheckedItems = (itemName, isChecked, cost) => {
+    const newCheckedItem = { name: itemName, cost: cost }
+    if (isChecked) {
+      setCheckedItems((prevItems) => [...prevItems, newCheckedItem]);
+    } else {
+      setCheckedItems((prevItems) => prevItems.filter((item) => item.name !== itemName));
+    }
+  };
+
+
+  const finalizePDF = () => { console.log(checkedItems) }
+
+
 
   return (
     <div>
@@ -130,9 +147,10 @@ function App() {
         )
       })}
       <div>Total: {total}</div>
+      <button onClick={finalizePDF}>Finalize PDF</button>
     </div>
 
   )
-}
+};
 
 export default App
