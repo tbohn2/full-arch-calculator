@@ -3,107 +3,117 @@ import './App.css'
 
 function App() {
   const treatmentPlanningArray = [
-    { name: "Records", cost: 550 },
-    { name: "Comprehensive Exam", cost: 350 },
-    { name: "Smile Design", cost: 400 },
-    { name: "Healing Teeth", cost: 1700 }
+    { id: 1, name: "Records", cost: 550 },
+    { id: 2, name: "Comprehensive Exam", cost: 350 },
+    { id: 3, name: "Smile Design", cost: 400 },
+    { id: 4, name: "Healing Teeth", cost: 1700 }
   ]
 
   const sedationArray = [
-    { name: "N/A", cost: 0 },
-    { name: "Halcion", cost: 450 },
-    { name: "IV Sedation", cost: 1200 }
+    { id: 5, name: "N/A", cost: 0 },
+    { id: 6, name: "Halcion", cost: 450 },
+    { id: 7, name: "IV Sedation", cost: 1200 }
   ]
 
   const removalArray = [
-    { name: "N/A", cost: 0 },
-    { name: "<5", cost: 1500 },
-    { name: "6-10", cost: 3000 },
-    { name: ">11", cost: 4500 }
+    { id: 8, name: "N/A", cost: 0 },
+    { id: 9, name: "<5", cost: 1500 },
+    { id: 10, name: "6-10", cost: 3000 },
+    { id: 11, name: ">11", cost: 4500 }
   ]
 
   // Bone Grafting and Alveoplasty
   const foundationArray = [
-    { name: "N/A", cost: 0 },
-    { name: "<5", cost: 1500 },
-    { name: "6-10", cost: 3000 },
-    { name: ">11", cost: 4500 }
+    { id: 12, name: "N/A", cost: 0 },
+    { id: 13, name: "<5", cost: 1500 },
+    { id: 14, name: "6-10", cost: 3000 },
+    { id: 15, name: ">11", cost: 4500 }
   ]
 
   const specialProcedureArray = [
-    { name: "N/A", cost: 0 },
-    { name: "Ridge Augmentation", cost: 1500 },
-    { name: "Sinus Lift", cost: 2500 },
-    { name: "Other", cost: 0 }
+    { id: 16, name: "N/A", cost: 0 },
+    { id: 17, name: "Ridge Augmentation", cost: 1500 },
+    { id: 18, name: "Sinus Lift", cost: 2500 },
+    { id: 19, name: "Other", cost: 0 }
   ]
 
   const implantsArray = [
-    { name: "4 or less", cost: 7500 },
-    { name: "5", cost: 10000 },
-    { name: "6", cost: 12500 },
-    { name: "7+", cost: 15000 }
+    { id: 20, name: "4 or less", cost: 7500 },
+    { id: 21, name: "5", cost: 10000 },
+    { id: 22, name: "6", cost: 12500 },
+    { id: 23, name: "7+", cost: 15000 }
   ]
 
   const abutmentsArray = [
-    { name: "4 or less", cost: 2500 },
-    { name: "5", cost: 3000 },
-    { name: "6", cost: 3500 },
-    { name: "7+", cost: 5000 }
+    { id: 24, name: "4 or less", cost: 2500 },
+    { id: 25, name: "5", cost: 3000 },
+    { id: 26, name: "6", cost: 3500 },
+    { id: 27, name: "7+", cost: 5000 }
   ]
 
   const finalSmileArray = [
-    { name: "Acrylic", cost: 3000 },
-    { name: "PMMA", cost: 4500 },
-    { name: "PMMA w/ Titanium Bar", cost: 6500 },
-    { name: "Porcelain (Zirconia)", cost: 9500 }
+    { id: 28, name: "Acrylic", cost: 3000 },
+    { id: 29, name: "PMMA", cost: 4500 },
+    { id: 30, name: "PMMA w/ Titanium Bar", cost: 6500 },
+    { id: 31, name: "Porcelain (Zirconia)", cost: 9500 }
   ]
 
   const hygieneVisitsArray = [
-    { name: "+1 Year", cost: 300 },
-    { name: "+2 Year", cost: 500 },
-    { name: "+3 Year", cost: 650 },
-    { name: "+4 Year", cost: 750 }
+    { id: 32, name: "+1 Year", cost: 300 },
+    { id: 33, name: "+2 Year", cost: 500 },
+    { id: 34, name: "+3 Year", cost: 650 },
+    { id: 35, name: "+4 Year", cost: 750 }
   ]
 
   const warrantyArray = [
-    { name: "+1 Year", cost: 750 },
-    { name: "+2 Year", cost: 1400 },
-    { name: "+3 Year", cost: 2000 },
-    { name: "+4 Year", cost: 3500 }
+    { id: 36, name: "+1 Year", cost: 750 },
+    { id: 37, name: "+2 Year", cost: 1400 },
+    { id: 38, name: "+3 Year", cost: 2000 },
+    { id: 39, name: "+4 Year", cost: 3500 }
   ]
 
-  const [treatmentPlanning, setTreatmentPlanning] = useState(0)
-  const [sedation, setSedation] = useState(0)
-  const [removal, setRemoval] = useState(0)
-  const [foundation, setFoundation] = useState(0)
-  const [specialProcedure, setSpecialProcedure] = useState(0)
-  const [implants, setImplants] = useState(0)
-  const [abutments, setAbutments] = useState(0)
-  const [finalSmile, setFinalSmile] = useState(0)
-  const [hygieneVisits, setHygieneVisits] = useState(0)
-  const [warranty, setWarranty] = useState(0)
-  const [total, setTotal] = useState(0)
+  const selectionsArray = [treatmentPlanningArray, sedationArray, removalArray, foundationArray, specialProcedureArray, implantsArray, abutmentsArray, finalSmileArray, hygieneVisitsArray, warrantyArray];
 
-  const updateTreatmentPlanning = (cost, isChecked) => {
-    setTreatmentPlanning((prevCost) => isChecked ? prevCost + cost : prevCost - cost);
+  const [costState, setCostState] = useState({
+    treatmentPlanning: 0,
+    sedation: 0,
+    removal: 0,
+    foundation: 0,
+    specialProcedure: 0,
+    implants: 0,
+    abutments: 0,
+    finalSmile: 0,
+    hygieneVisits: 0,
+    warranty: 0,
+  });
+
+  const [total, setTotal] = useState(0);
+
+  const updateCost = (cost, event) => {
+    const { name, checked } = event.target;
+    setCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
   }
 
   useEffect(() => {
-    const newTotal = treatmentPlanning + sedation + removal + foundation + specialProcedure + implants + abutments + finalSmile + hygieneVisits + warranty;
+    const newTotal = costState.treatmentPlanning + costState.sedation + costState.removal + costState.foundation + costState.specialProcedure + costState.implants + costState.abutments + costState.finalSmile + costState.hygieneVisits + costState.warranty;
     setTotal(newTotal);
-  }, [treatmentPlanning, sedation, removal, foundation, specialProcedure, implants, abutments, finalSmile, hygieneVisits, warranty]);
+  }, [costState]);
 
   return (
     <div>
-      <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        {treatmentPlanningArray.map((item, index) => (
-          <div key={item.name}>
-            <input type="checkbox" className="btn-check" id={item.name} autoComplete="off" onChange={(e) => updateTreatmentPlanning(item.cost, e.target.checked)}></input>
-            <label className="btn btn-outline-primary" htmlFor={item.name}>{item.name}</label>
-          </div>
-        ))}
-      </div>
-      <div>{treatmentPlanning}</div>
+      <h1>My Dental Full Arch Calculator</h1>
+      {selectionsArray.map((array, index) => (
+        <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+          {array.map((item, index) => (
+            <div key={item.name}>
+              <input type="checkbox" className="btn-check" name='treatmentPlanning' id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+              <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
+            </div>
+          ))}
+          {/* Fix what displays on page */}
+          <div>Cost: {costState.abutments}</div>
+        </div>
+      ))}
       <div>Total: {total}</div>
     </div>
 
