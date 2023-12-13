@@ -72,7 +72,18 @@ function App() {
     { id: 39, name: "+4 Year", cost: 3500 }
   ]
 
-  const selectionsArray = [treatmentPlanningArray, sedationArray, removalArray, foundationArray, specialProcedureArray, implantsArray, abutmentsArray, finalSmileArray, hygieneVisitsArray, warrantyArray];
+  const selectionsArray = [
+    { name: "Treatment Planning", array: treatmentPlanningArray, stateName: "treatmentPlanning" },
+    { name: "Sedation", array: sedationArray, stateName: "sedation" },
+    { name: "Removal", array: removalArray, stateName: "removal" },
+    { name: "Foundation", array: foundationArray, stateName: "foundation" },
+    { name: "Special Procedure", array: specialProcedureArray, stateName: "specialProcedure" },
+    { name: "Implants", array: implantsArray, stateName: "implants" },
+    { name: "Abutments", array: abutmentsArray, stateName: "abutments" },
+    { name: "Final Smile", array: finalSmileArray, stateName: "finalSmile" },
+    { name: "Hygiene Visits", array: hygieneVisitsArray, stateName: "hygieneVisits" },
+    { name: "Warranty", array: warrantyArray, stateName: "warranty" },
+  ];
 
   const [costState, setCostState] = useState({
     treatmentPlanning: 0,
@@ -102,18 +113,22 @@ function App() {
   return (
     <div>
       <h1>My Dental Full Arch Calculator</h1>
-      {selectionsArray.map((array, index) => (
-        <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-          {array.map((item, index) => (
-            <div key={item.name}>
-              <input type="checkbox" className="btn-check" name='treatmentPlanning' id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-              <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
-            </div>
-          ))}
-          {/* Fix what displays on page */}
-          <div>Cost: {costState.abutments}</div>
-        </div>
-      ))}
+      {selectionsArray.map((selection, index) => {
+        const { name, array, stateName } = selection;
+        const cost = costState[stateName];
+        return (
+          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+            <h2>{name}</h2>
+            {array.map((item, index) => (
+              <div key={item.name}>
+                <input type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
+              </div>
+            ))}
+            <div>Cost: {cost} </div>
+          </div>
+        )
+      })}
       <div>Total: {total}</div>
     </div>
 
