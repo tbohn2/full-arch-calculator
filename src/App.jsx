@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -88,6 +88,11 @@ function App() {
     setTreatmentPlanning((prevCost) => isChecked ? prevCost + cost : prevCost - cost);
   }
 
+  useEffect(() => {
+    const newTotal = treatmentPlanning + sedation + removal + foundation + specialProcedure + implants + abutments + finalSmile + hygieneVisits + warranty;
+    setTotal(newTotal);
+  }, [treatmentPlanning, sedation, removal, foundation, specialProcedure, implants, abutments, finalSmile, hygieneVisits, warranty]);
+
   return (
     <div>
       <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
@@ -99,7 +104,9 @@ function App() {
         ))}
       </div>
       <div>{treatmentPlanning}</div>
+      <div>Total: {total}</div>
     </div>
+
   )
 }
 
