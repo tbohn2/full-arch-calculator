@@ -72,10 +72,34 @@ function App() {
     { name: "+4 Year", cost: 3500 }
   ]
 
-  return (
-    <>
+  const [treatmentPlanning, setTreatmentPlanning] = useState(0)
+  const [sedation, setSedation] = useState(0)
+  const [removal, setRemoval] = useState(0)
+  const [foundation, setFoundation] = useState(0)
+  const [specialProcedure, setSpecialProcedure] = useState(0)
+  const [implants, setImplants] = useState(0)
+  const [abutments, setAbutments] = useState(0)
+  const [finalSmile, setFinalSmile] = useState(0)
+  const [hygieneVisits, setHygieneVisits] = useState(0)
+  const [warranty, setWarranty] = useState(0)
+  const [total, setTotal] = useState(0)
 
-    </>
+  const updateTreatmentPlanning = (cost, isChecked) => {
+    setTreatmentPlanning((prevCost) => isChecked ? prevCost + cost : prevCost - cost);
+  }
+
+  return (
+    <div>
+      <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        {treatmentPlanningArray.map((item, index) => (
+          <div key={item.name}>
+            <input type="checkbox" className="btn-check" id={item.name} autoComplete="off" onChange={(e) => updateTreatmentPlanning(item.cost, e.target.checked)}></input>
+            <label className="btn btn-outline-primary" htmlFor={item.name}>{item.name}</label>
+          </div>
+        ))}
+      </div>
+      <div>{treatmentPlanning}</div>
+    </div>
   )
 }
 
