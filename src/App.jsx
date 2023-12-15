@@ -101,9 +101,9 @@ function App() {
   const [total, setTotal] = useState(0);
 
   const updateCost = (cost, event) => {
-    const { name, checked } = event.target;
+    const { name, checked, title } = event.target;
     setCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
-    updateCheckedItems(name, checked, cost);
+    updateCheckedItems(title, checked, cost);
   }
 
   useEffect(() => {
@@ -122,10 +122,7 @@ function App() {
     }
   };
 
-
   const finalizePDF = () => { console.log(checkedItems) }
-
-
 
   return (
     <div>
@@ -137,8 +134,8 @@ function App() {
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
             {array.map((item, index) => (
-              <div key={item.name}>
-                <input type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+              <div>
+                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
                 <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
               </div>
             ))}
