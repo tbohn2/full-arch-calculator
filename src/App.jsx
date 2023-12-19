@@ -76,25 +76,43 @@ function App() {
   const selectionsArray = [
     { name: "Treatment Planning", array: treatmentPlanningArray, stateName: "treatmentPlanning" },
     { name: "Sedation", array: sedationArray, stateName: "sedation" },
-    { name: "Removal", array: removalArray, stateName: "removal" },
-    { name: "Foundation", array: foundationArray, stateName: "foundation" },
-    { name: "Special Procedure", array: specialProcedureArray, stateName: "specialProcedure" },
-    { name: "Implants", array: implantsArray, stateName: "implants" },
-    { name: "Abutments", array: abutmentsArray, stateName: "abutments" },
-    { name: "Final Smile", array: finalSmileArray, stateName: "finalSmile" },
     { name: "Hygiene Visits", array: hygieneVisitsArray, stateName: "hygieneVisits" },
     { name: "Warranty", array: warrantyArray, stateName: "warranty" },
+  ];
+
+  const maxillaryArray = [
+    { name: "Removal", array: removalArray, stateName: "maxRemoval" },
+    { name: "Foundation", array: foundationArray, stateName: "maxFoundation" },
+    { name: "Special Procedure", array: specialProcedureArray, stateName: "maxSpecialProcedure" },
+    { name: "Implants", array: implantsArray, stateName: "maxImplants" },
+    { name: "Abutments", array: abutmentsArray, stateName: "maxAbutments" },
+    { name: "Final Smile", array: finalSmileArray, stateName: "maxFinalSmile" }
+  ];
+
+  const mandibularArray = [
+    { name: "Removal", array: removalArray, stateName: "mandRemoval" },
+    { name: "Foundation", array: foundationArray, stateName: "mandFoundation" },
+    { name: "Special Procedure", array: specialProcedureArray, stateName: "mandSpecialProcedure" },
+    { name: "Implants", array: implantsArray, stateName: "mandImplants" },
+    { name: "Abutments", array: abutmentsArray, stateName: "mandAbutments" },
+    { name: "Final Smile", array: finalSmileArray, stateName: "mandFinalSmile" }
   ];
 
   const [costState, setCostState] = useState({
     treatmentPlanning: 0,
     sedation: 0,
-    removal: 0,
-    foundation: 0,
-    specialProcedure: 0,
-    implants: 0,
-    abutments: 0,
-    finalSmile: 0,
+    maxRemoval: 0,
+    mandRemoval: 0,
+    maxFoundation: 0,
+    mandFoundation: 0,
+    maxSpecialProcedure: 0,
+    mandSpecialProcedure: 0,
+    maxImplants: 0,
+    mandImplants: 0,
+    maxAbutments: 0,
+    mandAbutments: 0,
+    maxFinalSmile: 0,
+    mandFinalSmile: 0,
     hygieneVisits: 0,
     warranty: 0,
   });
@@ -141,6 +159,40 @@ function App() {
               <div>
                 <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
                 <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
+              </div>
+            ))}
+            <div>Cost: {cost} </div>
+          </div>
+        )
+      })}
+      <h2>Maxillary</h2>
+      {maxillaryArray.map((selection, index) => {
+        const { name, array, stateName } = selection;
+        const cost = costState[stateName];
+        return (
+          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+            <h2>{name}</h2>
+            {array.map((item, index) => (
+              <div>
+                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{item.name}</label>
+              </div>
+            ))}
+            <div>Cost: {cost} </div>
+          </div>
+        )
+      })}
+      <h2>Mandibular</h2>
+      {mandibularArray.map((selection, index) => {
+        const { name, array, stateName } = selection;
+        const cost = costState[stateName];
+        return (
+          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+            <h2>{name}</h2>
+            {array.map((item, index) => (
+              <div>
+                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'mand' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                <label className="btn btn-outline-primary" htmlFor={'mand' + item.id}>{item.name}</label>
               </div>
             ))}
             <div>Cost: {cost} </div>
