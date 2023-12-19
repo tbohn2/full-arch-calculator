@@ -120,26 +120,26 @@ function App() {
   const [total, setTotal] = useState(0);
 
   const updateCost = (cost, event) => {
-    const { name, checked, title } = event.target;
+    const { id, name, checked, title } = event.target;
     setCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
-    updateCheckedItems(title, checked, cost);
+    updateCheckedItems(id, title, checked, cost);
   }
 
-  useEffect(() => {
-    const newTotal = costState.treatmentPlanning + costState.sedation + costState.removal + costState.foundation + costState.specialProcedure + costState.implants + costState.abutments + costState.finalSmile + costState.hygieneVisits + costState.warranty;
-    setTotal(newTotal);
-  }, [costState]);
-
-  const [checkedItems, setCheckedItems] = useState([]);
-
-  const updateCheckedItems = (itemName, isChecked, cost) => {
-    const newCheckedItem = { name: itemName, cost: cost }
+  const updateCheckedItems = (id, itemName, isChecked, cost) => {
+    const newCheckedItem = { id: id, name: itemName, cost: cost }
     if (isChecked) {
       setCheckedItems((prevItems) => [...prevItems, newCheckedItem]);
     } else {
       setCheckedItems((prevItems) => prevItems.filter((item) => item.name !== itemName));
     }
   };
+
+  useEffect(() => {
+    const newTotal = Object.values(costState).reduce((total, cost) => total + cost, 0);
+    setTotal(newTotal);
+  }, [costState]);
+
+  const [checkedItems, setCheckedItems] = useState([]);
 
   const finalizePDF = () => {
     console.log(checkedItems)
