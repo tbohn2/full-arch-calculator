@@ -16,16 +16,16 @@ function App() {
   ]
 
   const removalArray = [
-    { id: 9, name: "<5", cost: 1500 },
-    { id: 10, name: "6-10", cost: 3000 },
-    { id: 11, name: ">11", cost: 4500 }
+    { id: 9, name: [1, 5], cost: 1500 },
+    { id: 10, name: [6, 10], cost: 3000 },
+    { id: 11, name: 11, cost: 4500 }
   ]
 
   // Bone Grafting and Alveoplasty
   const foundationArray = [
-    { id: 13, name: "<5", cost: 1500 },
-    { id: 14, name: "6-10", cost: 3000 },
-    { id: 15, name: ">11", cost: 4500 }
+    { id: 13, name: [1, 5], cost: 1500 },
+    { id: 14, name: [6, 10], cost: 3000 },
+    { id: 15, name: 11, cost: 4500 }
   ]
 
   const specialProcedureArray = [
@@ -35,17 +35,17 @@ function App() {
   ]
 
   const implantsArray = [
-    { id: 20, name: "4 or less", cost: 7500 },
-    { id: 21, name: "5", cost: 10000 },
-    { id: 22, name: "6", cost: 12500 },
-    { id: 23, name: "7+", cost: 15000 }
+    { id: 20, name: [1, 4], cost: 7500 },
+    { id: 21, name: 5, cost: 10000 },
+    { id: 22, name: 6, cost: 12500 },
+    { id: 23, name: 7, cost: 15000 }
   ]
 
   const abutmentsArray = [
-    { id: 24, name: "4 or less", cost: 2500 },
-    { id: 25, name: "5", cost: 3000 },
-    { id: 26, name: "6", cost: 3500 },
-    { id: 27, name: "7+", cost: 5000 }
+    { id: 24, name: [1, 4], cost: 2500 },
+    { id: 25, name: 5, cost: 3000 },
+    { id: 26, name: 6, cost: 3500 },
+    { id: 27, name: 7, cost: 5000 }
   ]
 
   const finalSmileArray = [
@@ -152,12 +152,15 @@ function App() {
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
-            {array.map((item, index) => (
+            {array.map((item, index) =>
+            (
               <div>
                 <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
                 <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
               </div>
-            ))}
+            )
+
+            )}
             <div>Cost: {cost} </div>
           </div>
         )
@@ -169,12 +172,18 @@ function App() {
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
-            {array.map((item, index) => (
-              <div>
-                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{item.name}</label>
-              </div>
-            ))}
+            {array.map((item, index) => {
+              let itemName = item.name;
+              if (Array.isArray(itemName)) {
+                itemName = `${item.name[0]} - ${item.name[1]}`
+              }
+              return (
+                <div>
+                  <input title={itemName} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{itemName}</label>
+                </div>
+              )
+            })}
             <div>Cost: {cost} </div>
           </div>
         )
@@ -186,12 +195,18 @@ function App() {
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
-            {array.map((item, index) => (
-              <div>
-                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'man' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                <label className="btn btn-outline-primary" htmlFor={'man' + item.id}>{item.name}</label>
-              </div>
-            ))}
+            {array.map((item, index) => {
+              let itemName = item.name;
+              if (Array.isArray(itemName)) {
+                itemName = `${item.name[0]} - ${item.name[1]}`
+              }
+              return (
+                <div>
+                  <input title={itemName} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{itemName}</label>
+                </div>
+              )
+            })}
             <div>Cost: {cost} </div>
           </div>
         )
