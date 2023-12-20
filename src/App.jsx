@@ -11,13 +11,11 @@ function App() {
   ]
 
   const sedationArray = [
-    { id: 5, name: "N/A", cost: 0 },
     { id: 6, name: "Halcion", cost: 450 },
     { id: 7, name: "IV Sedation", cost: 1200 }
   ]
 
   const removalArray = [
-    { id: 8, name: "N/A", cost: 0 },
     { id: 9, name: "<5", cost: 1500 },
     { id: 10, name: "6-10", cost: 3000 },
     { id: 11, name: ">11", cost: 4500 }
@@ -25,14 +23,12 @@ function App() {
 
   // Bone Grafting and Alveoplasty
   const foundationArray = [
-    { id: 12, name: "N/A", cost: 0 },
     { id: 13, name: "<5", cost: 1500 },
     { id: 14, name: "6-10", cost: 3000 },
     { id: 15, name: ">11", cost: 4500 }
   ]
 
   const specialProcedureArray = [
-    { id: 16, name: "N/A", cost: 0 },
     { id: 17, name: "Ridge Augmentation", cost: 1500 },
     { id: 18, name: "Sinus Lift", cost: 2500 },
     { id: 19, name: "Other", cost: 0 }
