@@ -122,7 +122,8 @@ function App() {
   }
 
   const updateCheckedItems = (id, itemName, isChecked, cost) => {
-    const newCheckedItem = { id: id, name: itemName, cost: cost }
+    const idNum = id.replace(/\D/g, "")
+    const newCheckedItem = { id: idNum, name: itemName, cost: cost }
     if (isChecked) {
       setCheckedItems((prevItems) => [...prevItems, newCheckedItem]);
     } else {
@@ -187,8 +188,8 @@ function App() {
             <h2>{name}</h2>
             {array.map((item, index) => (
               <div>
-                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'mand' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                <label className="btn btn-outline-primary" htmlFor={'mand' + item.id}>{item.name}</label>
+                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={'man' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                <label className="btn btn-outline-primary" htmlFor={'man' + item.id}>{item.name}</label>
               </div>
             ))}
             <div>Cost: {cost} </div>
