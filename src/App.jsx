@@ -11,7 +11,7 @@ function App() {
   ]
 
   const sedationArray = [
-    { id: 6, name: "Halcion", cost: 450 },
+    { id: 6, name: "Halcion Sedation", cost: 450 },
     { id: 7, name: "IV Sedation", cost: 1200 }
   ]
 
@@ -122,8 +122,7 @@ function App() {
   }
 
   const updateCheckedItems = (id, itemName, isChecked, cost) => {
-    const idNum = id.replace(/\D/g, "")
-    const newCheckedItem = { id: idNum, name: itemName, cost: cost }
+    const newCheckedItem = { id: id, name: itemName, cost: cost }
     if (isChecked) {
       setCheckedItems((prevItems) => [...prevItems, newCheckedItem]);
     } else {
@@ -139,8 +138,7 @@ function App() {
   const [checkedItems, setCheckedItems] = useState([]);
 
   const finalizePDF = () => {
-    console.log(checkedItems)
-    TxPlan(checkedItems)
+    TxPlan(checkedItems, total)
   }
 
   return (
@@ -183,7 +181,7 @@ function App() {
               }
               return (
                 <div key={id}>
-                  <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
                   <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
                 </div>
               )
@@ -210,7 +208,7 @@ function App() {
               }
               return (
                 <div key={id}>
-                  <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
                   <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
                 </div>
               )
@@ -233,11 +231,10 @@ function App() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body col-10">
-              {TxPlan(checkedItems)}
+              {TxPlan(checkedItems, total)}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
