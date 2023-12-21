@@ -102,6 +102,7 @@ const TxPlan = (txArray, total) => {
                 <h3>Total</h3>
                 <h3>${total}</h3>
             </div>
+            <button onClick={generatePdf}>Generate PDF</button>
         </div>
     );
 };
