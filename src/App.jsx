@@ -31,7 +31,7 @@ function App() {
   const specialProcedureArray = [
     { id: 17, name: "Ridge Augmentation", cost: 1500 },
     { id: 18, name: "Sinus Lift", cost: 2500 },
-    { id: 19, name: "Other", cost: 0 }
+    // { id: 19, name: "Other", cost: 0 }
   ]
 
   const implantsArray = [
@@ -173,14 +173,18 @@ function App() {
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
             {array.map((item, index) => {
-              let itemName = item.name;
-              if (Array.isArray(itemName)) {
-                itemName = `${item.name[0]} - ${item.name[1]}`
+              const id = 'max' + item.id;
+              let display = item.name;
+              if (Array.isArray(display)) {
+                display = `${item.name[0]} - ${item.name[1]}`
+              }
+              if (display === 7 || display === 11) {
+                display = `${display}+`;
               }
               return (
-                <div>
-                  <input title={itemName} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                  <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{itemName}</label>
+                <div key={id}>
+                  <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
                 </div>
               )
             })}
@@ -196,14 +200,18 @@ function App() {
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
             {array.map((item, index) => {
-              let itemName = item.name;
-              if (Array.isArray(itemName)) {
-                itemName = `${item.name[0]} - ${item.name[1]}`
+              const id = 'man' + item.id;
+              let display = item.name;
+              if (Array.isArray(display)) {
+                display = `${item.name[0]} - ${item.name[1]}`
+              }
+              if (display === 7 || display === 11) {
+                display = `${display}+`;
               }
               return (
-                <div>
-                  <input title={itemName} type="checkbox" className="btn-check" name={stateName} id={'max' + item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                  <label className="btn btn-outline-primary" htmlFor={'max' + item.id}>{itemName}</label>
+                <div key={id}>
+                  <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                  <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
                 </div>
               )
             })}
@@ -233,7 +241,6 @@ function App() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
