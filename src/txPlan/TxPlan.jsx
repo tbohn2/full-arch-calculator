@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import myDentalLogo from '../assets/myDentalLogo.png';
 
 const TxPlan = (txArray, total) => {
     let treatmentPlan = []
@@ -88,17 +89,18 @@ const TxPlan = (txArray, total) => {
     };
 
     return (
-        <div ref={txPlanRef} className="col-12">
+        <div ref={txPlanRef} className="col-12 d-flex flex-column align-items-center">
+            <img src={myDentalLogo} alt="My Dental Logo" />
             <h1>Treatment Plan</h1>
             {treatmentPlan.map((tx) => {
                 return (
-                    <div key={tx.id} className='col-12 d-flex justify-content-between'>
+                    <div key={tx.id} className='col-9 d-flex justify-content-between'>
                         <p>{tx.name}</p>
                         <p>${tx.cost}</p>
                     </div>
                 )
             })}
-            <div className='col-12 d-flex justify-content-between'>
+            <div className='col-9 d-flex justify-content-between'>
                 <h3>Total</h3>
                 <h3>${total}</h3>
             </div>
