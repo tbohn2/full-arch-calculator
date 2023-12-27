@@ -94,7 +94,13 @@ function App() {
     { name: "Final Smile", array: finalSmileArray, stateName: "mandFinalSmile" }
   ];
 
-  const [treatmentPlanningCostState, setTxPlanCostState] = useState(0);
+  const [treatmentPlanningCostState, setTxPlanCostState] = useState({
+    Records: 0,
+    ComprehensiveExam: 0,
+    SmileDesign: 0,
+    HealingTeeth: 0,
+    total: 0
+  });
 
   const [maxillaryTxPlanCostState, setMaxTxPlanCostState] = useState({
     maxRemoval: 0,
@@ -123,21 +129,20 @@ function App() {
     const idNum = id.replace(/\D/g, "");
     const arch = id.replace(/\d/g, "");
     if (idNum >= 1 && idNum <= 4) {
-      setTxPlanCostState((prevCost) => prevCost + cost);
+      console.log(treatmentPlanningCostState);
+      setTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost, total: checked ? prevCost.total + cost : prevCost.total - cost }));
     }
     if (arch === 'max') {
-      setMaxTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
-      setMaxTxPlanCostState((prevCost) => ({ ...prevCost, total: Object.values(prevCost).reduce((total, cost) => total + cost, 0) }));
+      setMaxTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost, total: checked ? prevCost.total + cost : prevCost.total - cost }));
     }
-    if (arch === 'man') {
-      setMandTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
-      setMandTxPlanCostState((prevCost) => ({ ...prevCost, total: Object.values(prevCost).reduce((total, cost) => total + cost, 0) }));
+    if (arch === 'mand') {
+      setMandTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost, total: checked ? prevCost.total + cost : prevCost.total - cost }));
     }
     updateCheckedItems(idNum, arch, title, checked, cost);
   }
 
   const [checkedItems, setCheckedItems] = useState({
-    txPlan: [],
+    TxPlan: [],
     maxTxPlan: [],
     mandTxPlan: [],
   });
@@ -145,15 +150,22 @@ function App() {
   const updateCheckedItems = (idNum, arch, itemName, isChecked, cost) => {
     const newCheckedItem = { id: idNum, name: itemName, cost: cost }
     const stateName = arch + 'TxPlan';
+    console.log(idNum, arch, itemName, isChecked, cost, stateName);
     if (isChecked) {
-      setCheckedItems[stateName]((prevItems) => [...prevItems, newCheckedItem]);
+      setCheckedItems(prevState => ({
+        ...prevState,
+        [stateName]: [...prevState[stateName], newCheckedItem],
+      }));
     } else {
-      setCheckedItems[stateName]((prevItems) => prevItems.filter((item) => item.name !== itemName));
+      setCheckedItems(prevState => ({
+        ...prevState,
+        [stateName]: prevState[stateName].filter(item => item.name !== itemName),
+      }));
     }
   };
 
   useEffect(() => {
-    const newTotal = treatmentPlanningCostState + maxillaryTxPlanCostState.total + mandibularTxPlanCostState.total;
+    const newTotal = treatmentPlanningCostState.total + maxillaryTxPlanCostState.total + mandibularTxPlanCostState.total;
     setTotal(newTotal);
   }, [treatmentPlanningCostState, maxillaryTxPlanCostState, mandibularTxPlanCostState]);
 
@@ -165,74 +177,83 @@ function App() {
   return (
     <div>
       <h1>My Dental Full Arch Calculator</h1>
-      <h2>Treatment Planning</h2>
-      {treatmentPlanningArray.map((selection, index) => {
-        const cost = treatmentPlanningCostState;
-        return (
-          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-            <div>
-              <input title={selection.name} type="checkbox" className="btn-check" id={selection.id} autoComplete="off" onChange={(e) => updateCost(selection.cost, e)}></input>
-              <label className="btn btn-outline-primary" htmlFor={selection.id}>{selection.name}</label>
+      <div>
+        <h2>Treatment Planning</h2>
+        {treatmentPlanningArray.map((selection, index) => {
+          const stateName = selection.name.replace(/\s/g, '');
+          return (
+            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+              <div>
+                <input name={stateName} title={selection.name} type="checkbox" className="btn-check" id={selection.id} autoComplete="off" onChange={(e) => updateCost(selection.cost, e)}></input>
+                <label className="btn btn-outline-primary" htmlFor={selection.id}>{selection.name}</label>
+              </div>
             </div>
+          )
+        })}
+        <div>Cost: {treatmentPlanningCostState.total} </div>
+      </div>
+      <div>
 
-            <div>Cost: {cost} </div>
-          </div>
-        )
-      })}
-      <h2>Maxillary</h2>
-      {maxillaryArray.map((selection, index) => {
-        const { name, array, stateName } = selection;
-        const cost = maxillaryTxPlanCostState[stateName];
-        return (
-          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-            <h2>{name}</h2>
-            {array.map((item, index) => {
-              const id = 'max' + item.id;
-              let display = item.name;
-              if (Array.isArray(display)) {
-                display = `${item.name[0]} - ${item.name[1]}`
-              }
-              if (display === 7 || display === 11) {
-                display = `${display}+`;
-              }
-              return (
-                <div key={id}>
-                  <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                  <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
-                </div>
-              )
-            })}
-            <div>Cost: {cost} </div>
-          </div>
-        )
-      })}
-      <h2>Mandibular</h2>
-      {mandibularArray.map((selection, index) => {
-        const { name, array, stateName } = selection;
-        const cost = mandibularTxPlanCostState[stateName];
-        return (
-          <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-            <h2>{name}</h2>
-            {array.map((item, index) => {
-              const id = 'man' + item.id;
-              let display = item.name;
-              if (Array.isArray(display)) {
-                display = `${item.name[0]} - ${item.name[1]}`
-              }
-              if (display === 7 || display === 11) {
-                display = `${display}+`;
-              }
-              return (
-                <div key={id}>
-                  <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                  <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
-                </div>
-              )
-            })}
-            <div>Cost: {cost} </div>
-          </div>
-        )
-      })}
+        <h2>Maxillary</h2>
+        {maxillaryArray.map((selection, index) => {
+          const { name, array, stateName } = selection;
+          const cost = maxillaryTxPlanCostState[stateName];
+          return (
+            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+              <h2>{name}</h2>
+              {array.map((item, index) => {
+                const id = 'max' + item.id;
+                let display = item.name;
+                if (Array.isArray(display)) {
+                  display = `${item.name[0]} - ${item.name[1]}`
+                }
+                if (display === 7 || display === 11) {
+                  display = `${display}+`;
+                }
+                return (
+                  <div key={id}>
+                    <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                    <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
+                  </div>
+                )
+              })}
+              <div>Cost: {cost} </div>
+            </div>
+          )
+        })}
+        <div>Total: {maxillaryTxPlanCostState.total}</div>
+      </div>
+      <div>
+
+        <h2>Mandibular</h2>
+        {mandibularArray.map((selection, index) => {
+          const { name, array, stateName } = selection;
+          const cost = mandibularTxPlanCostState[stateName];
+          return (
+            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+              <h2>{name}</h2>
+              {array.map((item, index) => {
+                const id = 'mand' + item.id;
+                let display = item.name;
+                if (Array.isArray(display)) {
+                  display = `${item.name[0]} - ${item.name[1]}`
+                }
+                if (display === 7 || display === 11) {
+                  display = `${display}+`;
+                }
+                return (
+                  <div key={id}>
+                    <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                    <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
+                  </div>
+                )
+              })}
+              <div>Cost: {cost} </div>
+            </div>
+          )
+        })}
+        <div>Total: {mandibularTxPlanCostState.total}</div>
+      </div>
       <div>Total: {total}</div>
 
       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={finalizePDF}>
