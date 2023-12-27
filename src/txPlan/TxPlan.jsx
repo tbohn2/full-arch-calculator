@@ -131,7 +131,7 @@ const FinalTxPlan = (tx, totals) => {
         <div>
             <img src={myDentalLogo} alt="My Dental Logo" />
             <div ref={txPlan1Ref} className="col-12 d-flex flex-column align-items-center">
-                <h1>Treatment Plan For Upper</h1>
+                <h1>Treatment Plan</h1>
                 {finalTreatmentPlan.map((tx) => {
                     return (
                         <div key={tx.id} className='col-9 d-flex justify-content-between'>
@@ -144,6 +144,30 @@ const FinalTxPlan = (tx, totals) => {
                     <h3>Total</h3>
                     <h3>${treatmentPlanningTotal}</h3>
                 </div>
+                {sedationArray.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                {hygieneVisitsArray.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                {warrantyArray.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
             </div>
             <div ref={txPlan2Ref} className="col-12 d-flex flex-column align-items-center">
                 <img src={myDentalLogo} alt="My Dental Logo" />
