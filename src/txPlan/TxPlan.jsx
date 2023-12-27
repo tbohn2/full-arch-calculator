@@ -78,33 +78,78 @@ const TxPlan = (txArray, total) => {
     });
 
 
-    const txPlanRef = useRef(null);
+    const txPlan1Ref = useRef(null);
+    const txPlan2Ref = useRef(null);
+    const txPlan3Ref = useRef(null);
+
     const generatePdf = async () => {
         const pdfDocument = new jsPDF();
-        const canvas = await html2canvas(txPlanRef.current);
 
-        pdfDocument.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        const canvas1 = await html2canvas(txPlan1Ref.current);
+        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addPage();
+
+        const canvas2 = await html2canvas(txPlan2Ref.current);
+        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addPage();
+
+        const canvas3 = await html2canvas(txPlan3Ref.current);
+        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addPage();
 
         pdfDocument.save('TxPlan.pdf');
     };
-
     return (
-        <div ref={txPlanRef} className="col-12 d-flex flex-column align-items-center">
+        <div>
             <img src={myDentalLogo} alt="My Dental Logo" />
-            <h1>Treatment Plan</h1>
-            {treatmentPlan.map((tx) => {
-                return (
-                    <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                        <p>{tx.name}</p>
-                        <p>${tx.cost}</p>
-                    </div>
-                )
-            })}
-            <div className='col-9 d-flex justify-content-between'>
-                <h3>Total</h3>
-                <h3>${total}</h3>
+            <div ref={txPlan1Ref} className="col-12 d-flex flex-column align-items-center">
+                <h1>Treatment Plan For Upper</h1>
+                {treatmentPlan.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                <div className='col-9 d-flex justify-content-between'>
+                    <h3>Total</h3>
+                    <h3>${total}</h3>
+                </div>
             </div>
-            <button onClick={generatePdf}>Generate PDF</button>
+            <div ref={txPlan2Ref} className="col-12 d-flex flex-column align-items-center">
+                <img src={myDentalLogo} alt="My Dental Logo" />
+                <h1>Treatment Plan For Lower</h1>
+                {treatmentPlan.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                <div className='col-9 d-flex justify-content-between'>
+                    <h3>Total</h3>
+                    <h3>${total}</h3>
+                </div>
+            </div>
+            <div ref={txPlan3Ref} className="col-12 d-flex flex-column align-items-center">
+                <img src={myDentalLogo} alt="My Dental Logo" />
+                <h1>Treatment Plan For Both Arches</h1>
+                {treatmentPlan.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
+                            <p>{tx.name}</p>
+                            <p>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                <div className='col-9 d-flex justify-content-between'>
+                    <h3>Total</h3>
+                    <h3>${total}</h3>
+                </div>
+                <button onClick={generatePdf}>Generate PDF</button>
+            </div>
         </div>
     );
 };
