@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import TxPlan from './txPlan/TxPlan'
+import FinalTxPlan from './txPlan/TxPlan'
 
 function App() {
   const treatmentPlanningArray = [
@@ -8,11 +8,6 @@ function App() {
     { id: 2, name: "Comprehensive Exam", cost: 350 },
     { id: 3, name: "Smile Design", cost: 400 },
     { id: 4, name: "Healing Teeth", cost: 1700 }
-  ]
-
-  const sedationArray = [
-    { id: 6, name: "Halcion Sedation", cost: 450 },
-    { id: 7, name: "IV Sedation", cost: 1200 }
   ]
 
   const removalArray = [
@@ -53,20 +48,6 @@ function App() {
     { id: 29, name: "PMMA", cost: 4500 },
     { id: 30, name: "PMMA w/ Titanium Bar", cost: 6500 },
     { id: 31, name: "Porcelain (Zirconia)", cost: 9500 }
-  ]
-
-  const hygieneVisitsArray = [
-    { id: 32, name: "+1 Year", cost: 300 },
-    { id: 33, name: "+2 Year", cost: 500 },
-    { id: 34, name: "+3 Year", cost: 650 },
-    { id: 35, name: "+4 Year", cost: 750 }
-  ]
-
-  const warrantyArray = [
-    { id: 36, name: "+1 Year", cost: 750 },
-    { id: 37, name: "+2 Year", cost: 1400 },
-    { id: 38, name: "+3 Year", cost: 2000 },
-    { id: 39, name: "+4 Year", cost: 3500 }
   ]
 
   const selectionsArray = [
@@ -129,7 +110,6 @@ function App() {
     const idNum = id.replace(/\D/g, "");
     const arch = id.replace(/\d/g, "");
     if (idNum >= 1 && idNum <= 4) {
-      console.log(treatmentPlanningCostState);
       setTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost, total: checked ? prevCost.total + cost : prevCost.total - cost }));
     }
     if (arch === 'max') {
@@ -150,7 +130,6 @@ function App() {
   const updateCheckedItems = (idNum, arch, itemName, isChecked, cost) => {
     const newCheckedItem = { id: idNum, name: itemName, cost: cost }
     const stateName = arch + 'TxPlan';
-    console.log(idNum, arch, itemName, isChecked, cost, stateName);
     if (isChecked) {
       setCheckedItems(prevState => ({
         ...prevState,
@@ -170,8 +149,15 @@ function App() {
   }, [treatmentPlanningCostState, maxillaryTxPlanCostState, mandibularTxPlanCostState]);
 
 
+  const totals = {
+    treatmentPlanningTotal: treatmentPlanningCostState.total,
+    maxTotal: maxillaryTxPlanCostState.total,
+    mandTotal: mandibularTxPlanCostState.total,
+    total: total
+  };
   const finalizePDF = () => {
-    TxPlan(checkedItems, total)
+    console.log(totals)
+    FinalTxPlan(checkedItems, totals)
   }
 
   return (
@@ -268,7 +254,7 @@ function App() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              {TxPlan(checkedItems, total)}
+              {FinalTxPlan(checkedItems, totals)}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
