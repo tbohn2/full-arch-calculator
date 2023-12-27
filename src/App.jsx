@@ -71,9 +71,9 @@ function App() {
 
   const selectionsArray = [
     { name: "Treatment Planning", array: treatmentPlanningArray, stateName: "treatmentPlanning" },
-    { name: "Sedation", array: sedationArray, stateName: "sedation" },
-    { name: "Hygiene Visits", array: hygieneVisitsArray, stateName: "hygieneVisits" },
-    { name: "Warranty", array: warrantyArray, stateName: "warranty" },
+    // { name: "Sedation", array: sedationArray, stateName: "sedation" },
+    // { name: "Hygiene Visits", array: hygieneVisitsArray, stateName: "hygieneVisits" },
+    // { name: "Warranty", array: warrantyArray, stateName: "warranty" },
   ];
 
   const maxillaryArray = [
@@ -94,48 +94,69 @@ function App() {
     { name: "Final Smile", array: finalSmileArray, stateName: "mandFinalSmile" }
   ];
 
-  const [costState, setCostState] = useState({
-    treatmentPlanning: 0,
-    sedation: 0,
+  const [treatmentPlanningCostState, setTxPlanCostState] = useState(0);
+
+  const [maxillaryTxPlanCostState, setMaxTxPlanCostState] = useState({
     maxRemoval: 0,
-    mandRemoval: 0,
     maxFoundation: 0,
-    mandFoundation: 0,
     maxSpecialProcedure: 0,
-    mandSpecialProcedure: 0,
     maxImplants: 0,
-    mandImplants: 0,
     maxAbutments: 0,
-    mandAbutments: 0,
     maxFinalSmile: 0,
+    total: 0
+  });
+
+  const [mandibularTxPlanCostState, setMandTxPlanCostState] = useState({
+    mandRemoval: 0,
+    mandFoundation: 0,
+    mandSpecialProcedure: 0,
+    mandImplants: 0,
+    mandAbutments: 0,
     mandFinalSmile: 0,
-    hygieneVisits: 0,
-    warranty: 0,
+    total: 0
   });
 
   const [total, setTotal] = useState(0);
 
   const updateCost = (cost, event) => {
     const { id, name, checked, title } = event.target;
-    setCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
-    updateCheckedItems(id, title, checked, cost);
+    const idNum = id.replace(/\D/g, "");
+    const arch = id.replace(/\d/g, "");
+    if (idNum >= 1 && idNum <= 4) {
+      setTxPlanCostState((prevCost) => prevCost + cost);
+    }
+    if (arch === 'max') {
+      setMaxTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
+      setMaxTxPlanCostState((prevCost) => ({ ...prevCost, total: Object.values(prevCost).reduce((total, cost) => total + cost, 0) }));
+    }
+    if (arch === 'man') {
+      setMandTxPlanCostState((prevCost) => ({ ...prevCost, [name]: checked ? prevCost[name] + cost : prevCost[name] - cost }));
+      setMandTxPlanCostState((prevCost) => ({ ...prevCost, total: Object.values(prevCost).reduce((total, cost) => total + cost, 0) }));
+    }
+    updateCheckedItems(idNum, arch, title, checked, cost);
   }
 
-  const updateCheckedItems = (id, itemName, isChecked, cost) => {
-    const newCheckedItem = { id: id, name: itemName, cost: cost }
+  const [checkedItems, setCheckedItems] = useState({
+    txPlan: [],
+    maxTxPlan: [],
+    mandTxPlan: [],
+  });
+
+  const updateCheckedItems = (idNum, arch, itemName, isChecked, cost) => {
+    const newCheckedItem = { id: idNum, name: itemName, cost: cost }
+    const stateName = arch + 'TxPlan';
     if (isChecked) {
-      setCheckedItems((prevItems) => [...prevItems, newCheckedItem]);
+      setCheckedItems[stateName]((prevItems) => [...prevItems, newCheckedItem]);
     } else {
-      setCheckedItems((prevItems) => prevItems.filter((item) => item.name !== itemName));
+      setCheckedItems[stateName]((prevItems) => prevItems.filter((item) => item.name !== itemName));
     }
   };
 
   useEffect(() => {
-    const newTotal = Object.values(costState).reduce((total, cost) => total + cost, 0);
+    const newTotal = treatmentPlanningCostState + maxillaryTxPlanCostState.total + mandibularTxPlanCostState.total;
     setTotal(newTotal);
-  }, [costState]);
+  }, [treatmentPlanningCostState, maxillaryTxPlanCostState, mandibularTxPlanCostState]);
 
-  const [checkedItems, setCheckedItems] = useState([]);
 
   const finalizePDF = () => {
     TxPlan(checkedItems, total)
@@ -144,21 +165,16 @@ function App() {
   return (
     <div>
       <h1>My Dental Full Arch Calculator</h1>
-      {selectionsArray.map((selection, index) => {
-        const { name, array, stateName } = selection;
-        const cost = costState[stateName];
+      <h2>Treatment Planning</h2>
+      {treatmentPlanningArray.map((selection, index) => {
+        const cost = treatmentPlanningCostState;
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-            <h2>{name}</h2>
-            {array.map((item, index) =>
-            (
-              <div>
-                <input title={item.name} type="checkbox" className="btn-check" name={stateName} id={item.id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                <label className="btn btn-outline-primary" htmlFor={item.id}>{item.name}</label>
-              </div>
-            )
+            <div>
+              <input title={selection.name} type="checkbox" className="btn-check" id={selection.id} autoComplete="off" onChange={(e) => updateCost(selection.cost, e)}></input>
+              <label className="btn btn-outline-primary" htmlFor={selection.id}>{selection.name}</label>
+            </div>
 
-            )}
             <div>Cost: {cost} </div>
           </div>
         )
@@ -166,7 +182,7 @@ function App() {
       <h2>Maxillary</h2>
       {maxillaryArray.map((selection, index) => {
         const { name, array, stateName } = selection;
-        const cost = costState[stateName];
+        const cost = maxillaryTxPlanCostState[stateName];
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
@@ -193,7 +209,7 @@ function App() {
       <h2>Mandibular</h2>
       {mandibularArray.map((selection, index) => {
         const { name, array, stateName } = selection;
-        const cost = costState[stateName];
+        const cost = mandibularTxPlanCostState[stateName];
         return (
           <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
             <h2>{name}</h2>
