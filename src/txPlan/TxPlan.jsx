@@ -130,8 +130,40 @@ const FinalTxPlan = (tx, totals) => {
         pdfDocument.save('TxPlan.pdf');
     };
     return (
-        <div>
-            <div ref={txPlan1Ref} className="full-page col-12 d-flex flex-column align-items-center">
+        <div className='d-flex flex-column'>
+            <div ref={txPlan1Ref} className="col-12 d-flex flex-column align-items-center">
+                <img src={myDentalLogo} alt="My Dental Logo" />
+                <h1>Treatment Plan For Upper</h1>
+                {finalMaxTxPlan.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-6 d-flex justify-content-between'>
+                            <p className='fs-5'>{tx.name}</p>
+                            <p className='fs-5'>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                <div className='col-6 d-flex justify-content-between'>
+                    <h3>Total</h3>
+                    <h3>${maxTotal}</h3>
+                </div>
+            </div>
+            <div ref={txPlan2Ref} className="col-12 d-flex flex-column align-items-center">
+                <img src={myDentalLogo} alt="My Dental Logo" />
+                <h1>Treatment Plan For Lower</h1>
+                {finalMandTxPlan.map((tx) => {
+                    return (
+                        <div key={tx.id} className='col-6 d-flex justify-content-between'>
+                            <p className='fs-5'>{tx.name}</p>
+                            <p className='fs-5'>${tx.cost}</p>
+                        </div>
+                    )
+                })}
+                <div className='col-6 d-flex justify-content-between'>
+                    <h3>Total</h3>
+                    <h3>${mandTotal}</h3>
+                </div>
+            </div>
+            <div ref={txPlan3Ref} className="full-page col-12 d-flex flex-column align-items-center">
                 <img src={myDentalLogo} alt="My Dental Logo" />
                 <h2>Other Required Treatment</h2>
                 {finalTreatmentPlan.map((tx) => {
@@ -173,7 +205,7 @@ const FinalTxPlan = (tx, totals) => {
                     <div className='border border-dark text-center'>______________________</div>
                 </div>
                 <div className='col-11 fs-5'>
-                    <p className='text-center'>This treatment plan and procedures recommended are specifically formulated for you and your present conditions.
+                    <p className='text-center'>This treatment plan and the procedures recommended are specifically formulated for you and your present conditions.
                         It is valid for 90 days and cannot be combined with any other offers or treatment.</p>
                     <div className='d-flex flex-column align-items-center col-12'>
                         <div className='d-flex justify-content-between col-9 my-3'>
@@ -188,39 +220,7 @@ const FinalTxPlan = (tx, totals) => {
                     <p className='text-center'>*IV Sedation fee is paid directly to a licensed anesthesiologist.</p>
                 </div>
             </div>
-            <div ref={txPlan2Ref} className="col-12 d-flex flex-column align-items-center">
-                <img src={myDentalLogo} alt="My Dental Logo" />
-                <h1>Treatment Plan For Lower</h1>
-                {finalMaxTxPlan.map((tx) => {
-                    return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
-                        </div>
-                    )
-                })}
-                <div className='col-9 d-flex justify-content-between'>
-                    <h3>Total</h3>
-                    <h3>${maxTotal}</h3>
-                </div>
-            </div>
-            <div ref={txPlan3Ref} className="col-12 d-flex flex-column align-items-center">
-                <img src={myDentalLogo} alt="My Dental Logo" />
-                <h1>Treatment Plan For Both Arches</h1>
-                {finalMandTxPlan.map((tx) => {
-                    return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
-                        </div>
-                    )
-                })}
-                <div className='col-9 d-flex justify-content-between'>
-                    <h3>Total</h3>
-                    <h3>${mandTotal}</h3>
-                </div>
-                <button onClick={generatePdf}>Generate PDF</button>
-            </div>
+            <button className='btn btn-success' onClick={generatePdf}>Generate PDF</button>
         </div>
     );
 };
