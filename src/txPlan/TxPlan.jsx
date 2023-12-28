@@ -116,12 +116,16 @@ const FinalTxPlan = (tx, totals) => {
 
     const generatePdf = async () => {
         const pdfDocument = new jsPDF({ unit: 'in' });
-        const canvasArray = [txPlan1Ref, txPlan2Ref, txPlan3Ref]
+        let canvasArray = []
+        if (finalMaxTxPlan.length != 0) { canvasArray.push(txPlan1Ref) }
+        if (finalMandTxPlan.length != 0) { canvasArray.push(txPlan2Ref) }
+        canvasArray.push(txPlan3Ref)
 
         for (let i = 0; i < canvasArray.length; i++) {
             const canvas = await html2canvas(canvasArray[i].current);
             const aspectRatio = canvas.width / canvas.height;
             const image1 = canvas.toDataURL('image/jpeg', 0.2)
+            // Get margins right on PDF
             pdfDocument.addImage(image1, 'JPEG', 0, 0.5, 8, (8 / aspectRatio));
             if (i < canvasArray.length - 1) { pdfDocument.addPage() }
         }
