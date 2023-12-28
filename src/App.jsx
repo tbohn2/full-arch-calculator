@@ -161,9 +161,9 @@ function App() {
   }
 
   return (
-    <div className='container'>
+    <div className='col-12 d-flex flex-column align-items-center'>
       <h1>My Dental Full Arch Calculator</h1>
-      <div className='border border-dark'>
+      <div className='border border-dark col-9 d-flex flex-column align-items-center'>
         <h2>Treatment Planning</h2>
         <div className="btn-group col-12 d-flex justify-content-evenly" role="group" aria-label="Basic checkbox toggle button group">
           {treatmentPlanningArray.map((selection, index) => {
@@ -176,9 +176,9 @@ function App() {
             )
           })}
         </div>
-        <div className='fw-bold fs-5 bg-dark text-light mt-3'>Treatment Planning Total: ${treatmentPlanningCostState.total} </div>
+        <div className='fw-bold fs-5 bg-dark text-light text-center mt-3 col-12'>Treatment Planning Total: ${treatmentPlanningCostState.total} </div>
       </div>
-      <div className='border border-dark'>
+      <div className='border border-dark col-9 d-flex flex-column align-items-center'>
         <h2>Maxillary</h2>
         {maxillaryArray.map((selection, index) => {
           const { name, array, stateName } = selection;
@@ -208,9 +208,9 @@ function App() {
             </div>
           )
         })}
-        <div className='fw-bold fs-5 bg-dark text-light'>Upper Total: ${maxillaryTxPlanCostState.total}</div>
+        <div className='fw-bold fs-5 bg-dark text-light col-12 text-center'>Upper Total: ${maxillaryTxPlanCostState.total}</div>
       </div>
-      <div className='border border-dark'>
+      <div className='border border-dark col-9 d-flex flex-column align-items-center'>
         <h2>Mandibular</h2>
         {mandibularArray.map((selection, index) => {
           const { name, array, stateName } = selection;
@@ -240,11 +240,11 @@ function App() {
             </div>
           )
         })}
-        <div className='fw-bold fs-5 bg-dark text-light'>Lower Total: ${mandibularTxPlanCostState.total}</div>
+        <div className='fw-bold fs-5 bg-dark text-light col-12 text-center'>Lower Total: ${mandibularTxPlanCostState.total}</div>
       </div>
-      <div className='fw-bold fs-3 border border-dark'>Total: ${total}</div>
+      <div className='fw-bold fs-3 border border-dark col-9 text-center'>Total: ${total}</div>
 
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={finalizePDF}>
+      <button type="button" className="btn btn-lg btn-dark col-9 m-3" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={finalizePDF}>
         Preview PDF
       </button>
 
