@@ -114,21 +114,15 @@ const FinalTxPlan = (tx, totals) => {
 
     const generatePdf = async () => {
         const pdfDocument = new jsPDF({ unit: 'in' });
+        const canvasArray = [txPlan1Ref, txPlan2Ref, txPlan3Ref]
 
-        const canvas1 = await html2canvas(txPlan1Ref.current);
-        const aspectRatio1 = canvas1.width / canvas1.height;
-        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio1));
-        pdfDocument.addPage();
-
-        const canvas2 = await html2canvas(txPlan2Ref.current);
-        const aspectRatio2 = canvas2.width / canvas2.height;
-        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio2));
-        pdfDocument.addPage();
-
-        const canvas3 = await html2canvas(txPlan3Ref.current);
-        const aspectRatio3 = canvas3.width / canvas3.height;
-        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio3));
-        console.log(canvas1, canvas2, canvas3);
+        for (let i = 0; i < canvasArray.length; i++) {
+            const canvas = await html2canvas(canvasArray[i].current);
+            const aspectRatio = canvas.width / canvas.height;
+            const image1 = canvas.toDataURL('image/jpeg', 0.2)
+            pdfDocument.addImage(image1, 'JPEG', 0, 0.5, 8, (8 / aspectRatio));
+            if (i < canvasArray.length - 1) { pdfDocument.addPage() }
+        }
 
         pdfDocument.save('TxPlan.pdf');
     };
