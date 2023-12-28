@@ -20,12 +20,14 @@ const FinalTxPlan = (tx, totals) => {
     ]
 
     const warrantyArray = [
-        { id: 37, name: "2 Years", cost: 750 },
+        { id: 37, name: "2 Years", cost: 0 },
         { id: 38, name: "3 Years", cost: 750 },
         { id: 39, name: "4 Years", cost: 1400 },
         { id: 40, name: "5 Years", cost: 2000 },
-        { id: 41, name: "6 Years", cost: 3500 }
+        { id: 41, name: "Lifetime", cost: 3500 }
     ]
+
+    const constantArrays = [sedationArray, hygieneVisitsArray, warrantyArray]
 
     const { TxPlan, maxTxPlan, mandTxPlan } = tx;
     let finalTreatmentPlan = []
@@ -114,60 +116,77 @@ const FinalTxPlan = (tx, totals) => {
         const pdfDocument = new jsPDF();
 
         const canvas1 = await html2canvas(txPlan1Ref.current);
-        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
         pdfDocument.addPage();
 
         const canvas2 = await html2canvas(txPlan2Ref.current);
-        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
         pdfDocument.addPage();
 
         const canvas3 = await html2canvas(txPlan3Ref.current);
-        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 10, 10, 190, 0);
+        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
         pdfDocument.addPage();
 
         pdfDocument.save('TxPlan.pdf');
     };
     return (
         <div>
-            <img src={myDentalLogo} alt="My Dental Logo" />
-            <div ref={txPlan1Ref} className="col-12 d-flex flex-column align-items-center">
-                <h1>Treatment Plan</h1>
+            <div ref={txPlan1Ref} className="full-page col-12 d-flex flex-column align-items-center">
+                <img src={myDentalLogo} alt="My Dental Logo" />
+                <h2>Other Required Treatment</h2>
                 {finalTreatmentPlan.map((tx) => {
                     return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
+                        <div key={tx.id} className='col-6 d-flex justify-content-between'>
+                            <p className='fs-5'>{tx.name}</p>
+                            <p className='fs-5'>${tx.cost}</p>
                         </div>
                     )
                 })}
-                <div className='col-9 d-flex justify-content-between'>
+                {constantArrays.map((txArray) => {
+                    let title
+                    if (txArray === sedationArray) { title = 'Sedation' }
+                    if (txArray === hygieneVisitsArray) { title = 'Hygiene Visits' }
+                    if (txArray === warrantyArray) { title = 'Warranty' }
+                    return (
+                        <div className='col-12 my-1 d-flex flex-column align-items-center'>
+                            <h3>{title}</h3>
+                            <div className='col-12 d-flex justify-content-evenly align-items-center'>
+                                {txArray.map((tx) => {
+                                    return (
+                                        <div key={tx.id} className='col-2 d-flex flex-column justify-content-between align-items-center border border-dark'>
+                                            <p className='fs-5'>{tx.name}</p>
+                                            <p className='fs-5'>${tx.cost}</p>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )
+                })}
+                <div className='col-6 d-flex fs-3 justify-content-between align-items-center'>
                     <h3>Total</h3>
-                    <h3>${treatmentPlanningTotal}</h3>
+                    <p>=</p>
+                    <h3>${total}</h3>
+                    <p>+</p>
+                    <div className='border border-dark text-center'>______________</div>
+                    <p>=</p>
+                    <div className='border border-dark text-center'>______________________</div>
                 </div>
-                {sedationArray.map((tx) => {
-                    return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
+                <div className='col-11 fs-5'>
+                    <p className='text-center'>This treatment plan and procedures recommended are specifically formulated for you and your present conditions.
+                        It is valid for 90 days and cannot be combined with any other offers or treatment.</p>
+                    <div className='d-flex flex-column align-items-center col-12'>
+                        <div className='d-flex justify-content-between col-9 my-3'>
+                            <p className='border-top border-dark col-6'>Patient's Signature</p>
+                            <p className='border-top border-dark col-3'>Date</p>
                         </div>
-                    )
-                })}
-                {hygieneVisitsArray.map((tx) => {
-                    return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
+                        <div className='d-flex justify-content-between col-9 my-3'>
+                            <p className='border-top border-dark col-6'>Treatment Coordinator's Signature</p>
+                            <p className='border-top border-dark col-3'>Date</p>
                         </div>
-                    )
-                })}
-                {warrantyArray.map((tx) => {
-                    return (
-                        <div key={tx.id} className='col-9 d-flex justify-content-between'>
-                            <p>{tx.name}</p>
-                            <p>${tx.cost}</p>
-                        </div>
-                    )
-                })}
+                    </div>
+                    <p className='text-center'>*IV Sedation fee is paid directly to a licensed anesthesiologist.</p>
+                </div>
             </div>
             <div ref={txPlan2Ref} className="col-12 d-flex flex-column align-items-center">
                 <img src={myDentalLogo} alt="My Dental Logo" />
