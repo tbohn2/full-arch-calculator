@@ -113,19 +113,22 @@ const FinalTxPlan = (tx, totals) => {
     const txPlan3Ref = useRef(null);
 
     const generatePdf = async () => {
-        const pdfDocument = new jsPDF();
+        const pdfDocument = new jsPDF({ unit: 'in' });
 
         const canvas1 = await html2canvas(txPlan1Ref.current);
-        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
+        const aspectRatio1 = canvas1.width / canvas1.height;
+        pdfDocument.addImage(canvas1.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio1));
         pdfDocument.addPage();
 
         const canvas2 = await html2canvas(txPlan2Ref.current);
-        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
+        const aspectRatio2 = canvas2.width / canvas2.height;
+        pdfDocument.addImage(canvas2.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio2));
         pdfDocument.addPage();
 
         const canvas3 = await html2canvas(txPlan3Ref.current);
-        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 10, 10, 612, 792);
-        pdfDocument.addPage();
+        const aspectRatio3 = canvas3.width / canvas3.height;
+        pdfDocument.addImage(canvas3.toDataURL('image/png'), 'PNG', 0, 0.5, 8, (8 / aspectRatio3));
+        console.log(canvas1, canvas2, canvas3);
 
         pdfDocument.save('TxPlan.pdf');
     };
