@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Footer from '../components/footer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import myDentalLogo from '../assets/myDentalLogo.png';
@@ -134,14 +135,14 @@ const FinalTxPlan = (tx, totals) => {
                 if (arch === finalMaxTxPlan) { ref = txPlan1Ref, title = 'Upper', total = maxTotal }
                 if (arch === finalMandTxPlan) { ref = txPlan2Ref, title = 'Lower', total = mandTotal }
                 return (
-                    <div ref={ref} className="full-page col-12 d-flex flex-column align-items-center">
-                        <img src={myDentalLogo} alt="My Dental Logo" className='logo' />
-                        <h1>Treatment Plan For {title}</h1>
+                    <div ref={ref} className="full-page border border-3 border-dark col-12 d-flex flex-column align-items-center">
+                        <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
+                        <h1 className='col-12 text-center border-top border-dark border-3 text-decoration-underline'>Treatment Plan For {title}</h1>
                         {arch.map((tx) => {
                             return (
                                 <div key={tx.id} className='col-6 d-flex justify-content-between'>
-                                    <p className='fs-5'>{tx.name}</p>
-                                    <p className='fs-5'>${tx.cost}</p>
+                                    <p className='fs-4'>{tx.name}</p>
+                                    <p className='fs-4'>${tx.cost}</p>
                                 </div>
                             )
                         })}
@@ -149,13 +150,14 @@ const FinalTxPlan = (tx, totals) => {
                             <h3>Total</h3>
                             <h3>${total}</h3>
                         </div>
+                        <Footer />
                     </div>
                 )
             })}
             <div className='d-flex flex-column'>
-                <div ref={txPlan3Ref} className="full-page col-12 d-flex flex-column align-items-center">
-                    <img src={myDentalLogo} alt="My Dental Logo" className='logo' />
-                    <h2>Other Required Treatment</h2>
+                <div ref={txPlan3Ref} className="full-page border-dark border border-3 col-12 d-flex flex-column align-items-center">
+                    <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
+                    <h1 className='col-12 text-center border-top border-dark border-3 text-decoration-underline'>Other Required Treatment</h1>
                     {finalTreatmentPlan.map((tx) => {
                         return (
                             <div key={tx.id} className='col-6 d-flex justify-content-between'>
@@ -197,7 +199,7 @@ const FinalTxPlan = (tx, totals) => {
                     <div className='col-11 fs-5'>
                         <p className='text-center'>This treatment plan and the procedures recommended are specifically formulated for you and your present conditions.
                             It is valid for 90 days and cannot be combined with any other offers or treatment.</p>
-                        <div className='d-flex flex-column align-items-center col-12'>
+                        <div className='d-flex flex-column align-items-center col-12 mt-5'>
                             <div className='d-flex justify-content-between col-9 my-3'>
                                 <p className='border-top border-dark col-6'>Patient's Signature</p>
                                 <p className='border-top border-dark col-3'>Date</p>
