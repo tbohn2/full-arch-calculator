@@ -161,86 +161,88 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='container'>
       <h1>My Dental Full Arch Calculator</h1>
-      <div>
+      <div className='border border-dark'>
         <h2>Treatment Planning</h2>
-        {treatmentPlanningArray.map((selection, index) => {
-          const stateName = selection.name.replace(/\s/g, '');
-          return (
-            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
+        <div className="btn-group col-12 d-flex justify-content-evenly" role="group" aria-label="Basic checkbox toggle button group">
+          {treatmentPlanningArray.map((selection, index) => {
+            const stateName = selection.name.replace(/\s/g, '');
+            return (
               <div>
                 <input name={stateName} title={selection.name} type="checkbox" className="btn-check" id={selection.id} autoComplete="off" onChange={(e) => updateCost(selection.cost, e)}></input>
-                <label className="btn btn-outline-primary" htmlFor={selection.id}>{selection.name}</label>
+                <label className="btn btn-lg btn-outline-dark" htmlFor={selection.id}>{selection.name}</label>
               </div>
-            </div>
-          )
-        })}
-        <div>Cost: {treatmentPlanningCostState.total} </div>
+            )
+          })}
+        </div>
+        <div className='fw-bold fs-5 bg-dark text-light mt-3'>Treatment Planning Total: ${treatmentPlanningCostState.total} </div>
       </div>
-      <div>
-
+      <div className='border border-dark'>
         <h2>Maxillary</h2>
         {maxillaryArray.map((selection, index) => {
           const { name, array, stateName } = selection;
           const cost = maxillaryTxPlanCostState[stateName];
           return (
-            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-              <h2>{name}</h2>
-              {array.map((item, index) => {
-                const id = 'max' + item.id;
-                let display = item.name;
-                if (Array.isArray(display)) {
-                  display = `${item.name[0]} - ${item.name[1]}`
-                }
-                if (display === 7 || display === 11) {
-                  display = `${display}+`;
-                }
-                return (
-                  <div key={id}>
-                    <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                    <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
-                  </div>
-                )
-              })}
-              <div>Cost: {cost} </div>
+            <div className="col-12 d-flex border-bottom border-dark">
+              <h2 className='col-3 text-start'>{name}</h2>
+              <div className='col-8 btn-group' role="group" aria-label="Basic checkbox toggle button group">
+                {array.map((item, index) => {
+                  const id = 'max' + item.id;
+                  let display = item.name;
+                  if (Array.isArray(display)) {
+                    display = `${item.name[0]} - ${item.name[1]}`
+                  }
+                  if (display === 7 || display === 11) {
+                    display = `${display}+`;
+                  }
+                  return (
+                    <div key={id}>
+                      <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                      <label className="btn btn-outline-dark m-1" htmlFor={id}>{display}</label>
+                    </div>
+                  )
+                })}
+              </div>
+              <div>${cost} </div>
             </div>
           )
         })}
-        <div>Total: {maxillaryTxPlanCostState.total}</div>
+        <div className='fw-bold fs-5 bg-dark text-light'>Upper Total: ${maxillaryTxPlanCostState.total}</div>
       </div>
-      <div>
-
+      <div className='border border-dark'>
         <h2>Mandibular</h2>
         {mandibularArray.map((selection, index) => {
           const { name, array, stateName } = selection;
           const cost = mandibularTxPlanCostState[stateName];
           return (
-            <div className="btn-group col-12" role="group" aria-label="Basic checkbox toggle button group">
-              <h2>{name}</h2>
-              {array.map((item, index) => {
-                const id = 'mand' + item.id;
-                let display = item.name;
-                if (Array.isArray(display)) {
-                  display = `${item.name[0]} - ${item.name[1]}`
-                }
-                if (display === 7 || display === 11) {
-                  display = `${display}+`;
-                }
-                return (
-                  <div key={id}>
-                    <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
-                    <label className="btn btn-outline-primary" htmlFor={id}>{display}</label>
-                  </div>
-                )
-              })}
-              <div>Cost: {cost} </div>
+            <div className='col-12 d-flex border-bottom border-dark'>
+              <h2 className='col-3 text-start'>{name}</h2>
+              <div className="col-8 btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                {array.map((item, index) => {
+                  const id = 'mand' + item.id;
+                  let display = item.name;
+                  if (Array.isArray(display)) {
+                    display = `${item.name[0]} - ${item.name[1]}`
+                  }
+                  if (display === 7 || display === 11) {
+                    display = `${display}+`;
+                  }
+                  return (
+                    <div key={id}>
+                      <input title={display} type="checkbox" className="btn-check" name={stateName} id={id} autoComplete="off" onChange={(e) => updateCost(item.cost, e)}></input>
+                      <label className="btn btn-outline-dark m-1" htmlFor={id}>{display}</label>
+                    </div>
+                  )
+                })}
+              </div>
+              <div>${cost} </div>
             </div>
           )
         })}
-        <div>Total: {mandibularTxPlanCostState.total}</div>
+        <div className='fw-bold fs-5 bg-dark text-light'>Lower Total: ${mandibularTxPlanCostState.total}</div>
       </div>
-      <div>Total: {total}</div>
+      <div className='fw-bold fs-3 border border-dark'>Total: ${total}</div>
 
       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={finalizePDF}>
         Preview PDF
