@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import FinalTxPlan from './txPlan/TxPlan'
+import logo from './assets/myDentalLogo.png'
 
 function App() {
   const treatmentPlanningArray = [
@@ -58,8 +59,8 @@ function App() {
   ];
 
   const maxillaryArray = [
-    { name: "Removal", array: removalArray, stateName: "maxRemoval" },
-    { name: "Foundation", array: foundationArray, stateName: "maxFoundation" },
+    { name: "Tooth/Implant Removal", array: removalArray, stateName: "maxRemoval" },
+    { name: "Bone Graft/Alveoplasty", array: foundationArray, stateName: "maxFoundation" },
     { name: "Special Procedure", array: specialProcedureArray, stateName: "maxSpecialProcedure" },
     { name: "Implants", array: implantsArray, stateName: "maxImplants" },
     { name: "Abutments", array: abutmentsArray, stateName: "maxAbutments" },
@@ -67,8 +68,8 @@ function App() {
   ];
 
   const mandibularArray = [
-    { name: "Removal", array: removalArray, stateName: "mandRemoval" },
-    { name: "Foundation", array: foundationArray, stateName: "mandFoundation" },
+    { name: "Tooth/Implant Removal", array: removalArray, stateName: "mandRemoval" },
+    { name: "Bone Graft/Alveoplasty", array: foundationArray, stateName: "mandFoundation" },
     { name: "Special Procedure", array: specialProcedureArray, stateName: "mandSpecialProcedure" },
     { name: "Implants", array: implantsArray, stateName: "mandImplants" },
     { name: "Abutments", array: abutmentsArray, stateName: "mandAbutments" },
@@ -161,7 +162,8 @@ function App() {
   }
 
   return (
-    <div className='col-12 d-flex flex-column align-items-center'>
+    <div className='col-12 mt-2 d-flex flex-column align-items-center'>
+      <img src={logo} alt="My Dental Logo" className='logo' />
       <h1>My Dental Full Arch Calculator</h1>
       <div className='border border-dark col-9 d-flex flex-column align-items-center'>
         <h2>Treatment Planning</h2>
