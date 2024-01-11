@@ -8,12 +8,12 @@ const FinalTxPlan = (tx, totals) => {
     const { treatmentPlanningTotal, maxTotal, mandTotal, total } = totals;
 
     const sedationArray = [
-        { id: 6, name: "Halcion Sedation", cost: 450 },
-        { id: 7, name: "IV Sedation*", cost: 1200 }
+        { id: 6, name: "Halcion", cost: 450 },
+        { id: 7, name: "IV*", cost: 1200 }
     ]
 
     const hygieneVisitsArray = [
-        { id: 32, name: "1 Years", cost: 0 },
+        { id: 32, name: "1 Year", cost: 0 },
         { id: 33, name: "2 Years", cost: 300 },
         { id: 34, name: "3 Years", cost: 500 },
         { id: 35, name: "4 Years", cost: 650 },
@@ -171,8 +171,8 @@ const FinalTxPlan = (tx, totals) => {
                     {finalTreatmentPlan.map((tx) => {
                         return (
                             <div key={tx.id} className='col-6 d-flex justify-content-between'>
-                                <p className='fs-5'>{tx.name}</p>
-                                <p className='fs-5'>${tx.cost}</p>
+                                <p className='fs-5 my-1'>{tx.name}</p>
+                                <p className='fs-5 my-1'>${tx.cost}</p>
                             </div>
                         )
                     })}
@@ -182,14 +182,14 @@ const FinalTxPlan = (tx, totals) => {
                         if (txArray === hygieneVisitsArray) { title = 'Hygiene Visits' }
                         if (txArray === warrantyArray) { title = 'Warranty' }
                         return (
-                            <div className='col-12 my-1 d-flex flex-column align-items-center'>
-                                <h3>{title}</h3>
-                                <div className='col-12 d-flex justify-content-evenly align-items-center'>
+                            <div className='col-11 my-1 d-flex justify-content-between align-items-center'>
+                                <h3 className='col-2'>{title}</h3>
+                                <div className='col-12 d-flex'>
                                     {txArray.map((tx) => {
                                         return (
-                                            <div key={tx.id} className='col-2 d-flex flex-column justify-content-between align-items-center border border-dark'>
-                                                <p className='fs-5'>{tx.name}</p>
-                                                <p className='fs-5'>${tx.cost}</p>
+                                            <div key={tx.id} className='col-2 d-flex flex-column px-3 justify-content-between align-items-center border border-dark'>
+                                                <p className='fs-5 m-1 text-center'>{tx.name}</p>
+                                                <p className='fs-5 m-1 text-center'>${tx.cost}</p>
                                             </div>
                                         )
                                     })}
@@ -197,7 +197,7 @@ const FinalTxPlan = (tx, totals) => {
                             </div>
                         )
                     })}
-                    <div className='col-12 d-flex fs-3 justify-content-between align-items-center'>
+                    <div className='col-11 d-flex fs-3 justify-content-between align-items-center'>
                         <h3>Total</h3>
                         <p>=</p>
                         <h3>${total}</h3>
