@@ -115,18 +115,22 @@ const FinalTxPlan = (tx, totals) => {
     const txPlan3Ref = useRef(null);
 
     const generatePdf = async () => {
-        const pdfDocument = new jsPDF({ unit: 'in' });
+        const pdfDocument = new jsPDF({ unit: 'px', format: 'letter', orientation: 'portrait' });
         let canvasArray = []
         if (finalMaxTxPlan.length != 0) { canvasArray.push(txPlan1Ref) }
         if (finalMandTxPlan.length != 0) { canvasArray.push(txPlan2Ref) }
         canvasArray.push(txPlan3Ref)
 
         for (let i = 0; i < canvasArray.length; i++) {
+
             const canvas = await html2canvas(canvasArray[i].current);
             const aspectRatio = canvas.width / canvas.height;
-            const image1 = canvas.toDataURL('image/jpeg', 0.2)
-            // Get margins right on PDF
-            pdfDocument.addImage(image1, 'JPEG', 0, 0.5, 8, (8 / aspectRatio));
+            const height = pdfDocument.internal.pageSize.getHeight();
+            const width = aspectRatio * height;
+            // Change quality (number between 0 and 1) of the image
+            const image = canvas.toDataURL('image/jpeg', 0.3)
+
+            pdfDocument.addImage(image, 'JPEG', 0, 0, width, height);
             if (i < canvasArray.length - 1) { pdfDocument.addPage() }
         }
 
@@ -139,7 +143,7 @@ const FinalTxPlan = (tx, totals) => {
                 if (arch === finalMaxTxPlan) { ref = txPlan1Ref, title = 'Upper', total = maxTotal }
                 if (arch === finalMandTxPlan) { ref = txPlan2Ref, title = 'Lower', total = mandTotal }
                 return (
-                    <div ref={ref} className="full-page border border-3 border-dark col-12 d-flex flex-column justify-content-between align-items-center">
+                    <div ref={ref} className="full-page m-1 border border-3 border-dark d-flex flex-column justify-content-between align-items-center">
                         <div className='col-12 d-flex flex-column align-items-center'>
                             <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
                             <h1 className='col-12 py-3 text-center border-top border-dark border-3 text-decoration-underline'>Treatment Plan For {title}</h1>
@@ -161,7 +165,7 @@ const FinalTxPlan = (tx, totals) => {
                 )
             })}
             <div className='d-flex flex-column'>
-                <div ref={txPlan3Ref} className="full-page border-dark border border-3 col-12 d-flex flex-column align-items-center">
+                <div ref={txPlan3Ref} className="full-page border-dark border border-3 d-flex flex-column align-items-center">
                     <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
                     <h1 className='col-12 text-center border-top border-dark border-3 text-decoration-underline'>Other Required Treatment</h1>
                     {finalTreatmentPlan.map((tx) => {
@@ -193,7 +197,7 @@ const FinalTxPlan = (tx, totals) => {
                             </div>
                         )
                     })}
-                    <div className='col-6 d-flex fs-3 justify-content-between align-items-center'>
+                    <div className='col-12 d-flex fs-3 justify-content-between align-items-center'>
                         <h3>Total</h3>
                         <p>=</p>
                         <h3>${total}</h3>
