@@ -51,13 +51,6 @@ function App() {
     { id: 31, name: "Porcelain (Zirconia)", cost: 9500 }
   ]
 
-  const selectionsArray = [
-    { name: "Treatment Planning", array: treatmentPlanningArray, stateName: "treatmentPlanning" },
-    // { name: "Sedation", array: sedationArray, stateName: "sedation" },
-    // { name: "Hygiene Visits", array: hygieneVisitsArray, stateName: "hygieneVisits" },
-    // { name: "Warranty", array: warrantyArray, stateName: "warranty" },
-  ];
-
   const maxillaryArray = [
     { name: "Tooth/Implant Removal", array: removalArray, stateName: "maxRemoval" },
     { name: "Bone Graft/Alveoplasty", array: foundationArray, stateName: "maxFoundation" },
