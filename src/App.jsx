@@ -158,10 +158,6 @@ function App() {
     mandTotal: mandibularTxPlanCostState.total,
     total: total
   };
-  const finalizePDF = () => {
-    console.log(totals)
-    FinalTxPlan(checkedItems, totals)
-  }
 
   return (
     <div className='col-12 mt-2 d-flex flex-column align-items-center'>
@@ -226,27 +222,8 @@ function App() {
 
       </div>
       <div className='fw-bold fs-3 border border-dark col-9 text-center'>Total: ${total}</div>
-
-      <button type="button" className="btn btn-lg btn-dark col-9 m-3" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={finalizePDF}>
-        Preview PDF
-      </button>
-
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-xl">
-          <div className="modal-content d-flex justify-content-center">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Treatment Plan Preview</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              {FinalTxPlan(checkedItems, totals)}
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1>PDF Preview:</h1>
+      {FinalTxPlan(checkedItems, totals)}
     </div>
 
   )
