@@ -149,13 +149,13 @@ const FinalTxPlan = (tx, totals) => {
                             <h1 className='col-12 py-3 text-center border-top border-dark border-3 text-decoration-underline'>Treatment Plan For {title}</h1>
                             {arch.map((tx) => {
                                 return (
-                                    <div key={tx.id} className='col-6 my-2 d-flex justify-content-between'>
+                                    <div key={tx.id} className='col-8 my-2 d-flex justify-content-between'>
                                         <p className='fs-4'>{tx.name}</p>
                                         <p className='fs-4'>${tx.cost}</p>
                                     </div>
                                 )
                             })}
-                            <div className='col-6 d-flex justify-content-between'>
+                            <div className='col-8 d-flex justify-content-between'>
                                 <h3>Total</h3>
                                 <h3>${total}</h3>
                             </div>

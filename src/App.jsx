@@ -192,8 +192,8 @@ function App() {
                 const cost = costState[stateName];
                 return (
                   <div className="col-12 d-flex border-bottom border-dark">
-                    <h2 className='col-3 text-start'>{name}</h2>
-                    <div className='col-8 btn-group' role="group" aria-label="Basic checkbox toggle button group">
+                    <h2 className='col-4 text-start'>{name}</h2>
+                    <div className='col-7 btn-group d-flex align-items-center' role="group" aria-label="Basic checkbox toggle button group">
                       {array.map((item, index) => {
                         const id = arch + item.id;
                         let display = item.name;
