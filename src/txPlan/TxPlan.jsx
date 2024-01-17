@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import Footer from '../components/footer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import myDentalLogo from '../assets/myDentalLogo.png';
+import headerLogo from '../assets/MyDentalHeader.png'
+import footerLogo from '../assets/MyDentalFooter.png'
 
 const FinalTxPlan = (tx, totals) => {
     const { treatmentPlanningTotal, maxTotal, mandTotal, total } = totals;
@@ -143,10 +144,10 @@ const FinalTxPlan = (tx, totals) => {
                 if (arch === finalMaxTxPlan) { ref = txPlan1Ref, title = 'Upper', total = maxTotal }
                 if (arch === finalMandTxPlan) { ref = txPlan2Ref, title = 'Lower', total = mandTotal }
                 return (
-                    <div ref={ref} className="full-page m-1 border border-3 border-dark d-flex flex-column justify-content-between align-items-center">
+                    <div ref={ref} className="full-page my-1 border-start border-end border-3 border-dark d-flex flex-column justify-content-between align-items-center">
                         <div className='col-12 d-flex flex-column align-items-center'>
-                            <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
-                            <h1 className='col-12 py-3 text-center border-top border-dark border-3 text-decoration-underline'>Treatment Plan For {title}</h1>
+                            <img src={headerLogo} alt="My Dental Header" className='full-width' />
+                            <h1 className='col-12 py-3 text-center text-decoration-underline'>Treatment Plan For {title}</h1>
                             {arch.map((tx) => {
                                 return (
                                     <div key={tx.id} className='col-8 my-2 d-flex justify-content-between'>
@@ -160,14 +161,14 @@ const FinalTxPlan = (tx, totals) => {
                                 <h3>${total}</h3>
                             </div>
                         </div>
-                        <Footer />
+                        <img src={footerLogo} alt="My Dental Footer" className='full-width ' />
                     </div>
                 )
             })}
             <div className='d-flex flex-column'>
-                <div ref={txPlan3Ref} className="full-page border-dark border border-3 d-flex flex-column align-items-center">
-                    <img src={myDentalLogo} alt="My Dental Logo" className='logo py-3' />
-                    <h1 className='col-12 text-center border-top border-dark border-3 text-decoration-underline'>Other Required Treatment</h1>
+                <div ref={txPlan3Ref} className="full-page border-dark border-start border-end border-3 d-flex flex-column align-items-center justify-content-between">
+                    <img src={headerLogo} alt="My Dental Logo" className='full-width' />
+                    <h1 className='col-12 text-center text-decoration-underline'>Other Required Treatment</h1>
                     {finalTreatmentPlan.map((tx) => {
                         return (
                             <div key={tx.id} className='col-6 d-flex justify-content-between'>
@@ -221,6 +222,7 @@ const FinalTxPlan = (tx, totals) => {
                         </div>
                         <p className='text-center'>*IV Sedation fee is paid directly to a licensed anesthesiologist.</p>
                     </div>
+                    <img src={footerLogo} alt="My Dental Footer" className='full-width' />
                 </div>
                 <button className='btn btn-success' onClick={generatePdf}>Generate PDF</button>
             </div>
