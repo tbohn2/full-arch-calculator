@@ -155,7 +155,7 @@ function App() {
   return (
     <div className='col-12 mt-2 d-flex flex-column align-items-center'>
       <img src={logo} alt="My Dental Logo" className='logo' />
-      <h1>My Dental Full Arch Calculator</h1>
+      <h1>Full Arch Calculator</h1>
       <div className='border border-dark col-9 d-flex flex-column align-items-center'>
         <h2>Treatment Planning</h2>
         <div className="btn-group col-12 d-flex justify-content-evenly" role="group" aria-label="Basic checkbox toggle button group">
