@@ -44,55 +44,55 @@ const FinalTxPlan = (tx, totals) => {
             if (id >= 1 && id <= 4) { finalTreatmentPlan.push(txArray[i]) }
             if (id >= 9 && id <= 11) {
                 if (arch === 'max') {
-                    name = `Upper Teeth Removal: ${name}`
+                    name = `Removal of ${name} teeth`
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower Teeth Removal: ${name}`
+                    name = `Removal of ${name} teeth`
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
             if (id >= 13 && id <= 15) {
                 if (arch === 'max') {
-                    name = `Upper Foundational Work: ${name}`
+                    name = `Foundational Work`
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower Foundational Work: ${name}`
+                    name = `Foundational Work`
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
             if (id >= 17 && id <= 18) {
                 if (arch === 'max') {
-                    name = `Upper ${name}`;
+                    name = `${name}`;
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower ${name}`;
+                    name = `${name}`;
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
             if (id >= 20 && id <= 23) {
                 if (arch === 'max') {
-                    name = `Upper Implants: ${name}`;
+                    name = `${name} Implants`;
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower Implants: ${name}`;
+                    name = `${name} Implants`;
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
             if (id >= 24 && id <= 27) {
                 if (arch === 'max') {
-                    name = `Upper Abutments: ${name}`;
+                    name = `${name} Abutments`;
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower Abutments: ${name}`;
+                    name = `${name} Abutments`;
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
             if (id >= 28 && id <= 31) {
                 if (arch === 'max') {
-                    name = `Upper Final: ${name}`;
+                    name = `Final Prosthesis: ${name}`;
                     finalMaxTxPlan.push({ id, name, cost })
                 } else {
-                    name = `Lower Final: ${name}`;
+                    name = `Final Prosthesis: ${name}`;
                     finalMandTxPlan.push({ id, name, cost })
                 }
             }
@@ -147,14 +147,14 @@ const FinalTxPlan = (tx, totals) => {
                     <div ref={ref} className="full-page my-1 border-start border-end border-3 border-dark d-flex flex-column justify-content-between align-items-center">
                         <div>
                             <img src={headerLogo} alt="My Dental Header" className='full-width-container' />
-                            <h1 className='col-12 py-3 text-center text-decoration-underline'>Treatment Plan For {title}</h1>
+                            <h1 className='col-12 py-3 text-center text-decoration-underline'>{title} Treatment Plan</h1>
                         </div>
                         <div className='col-12 mb-5 pb-5 d-flex flex-column align-items-center justify-content-between'>
                             {arch.map((tx) => {
                                 return (
                                     <div key={tx.id} className='col-8 d-flex'>
-                                        <p className='fs-4 col-8 border border-dark m-0 p-3'>{tx.name}</p>
-                                        <p className='fs-4 col-4 border border-dark m-0 p-3'>${tx.cost}</p>
+                                        <p className='fs-3 col-8 border border-dark m-0 p-3'>{tx.name}</p>
+                                        <p className='fs-3 col-4 border border-dark m-0 p-3'>${tx.cost}</p>
                                     </div>
                                 )
                             })}
@@ -163,7 +163,7 @@ const FinalTxPlan = (tx, totals) => {
                                 <p className='fs-3 fw-bold col-4 border border-dark m-0 p-3'>${total}</p>
                             </div>
                         </div>
-                        <div className='full-width-container'>
+                        <div className='full-width-container mt-5'>
                             <img src={footerLogo} alt="My Dental Footer" />
                         </div>
                     </div>
@@ -230,7 +230,7 @@ const FinalTxPlan = (tx, totals) => {
                         <img src={footerLogo} alt="My Dental Footer" />
                     </div>
                 </div>
-                <button className='btn btn-success my-3' onClick={generatePdf}>Generate PDF</button>
+                <button className='btn btn-success my-3 fs-3' onClick={generatePdf}>Download Treatment Plan</button>
             </div>
         </div>
     );
