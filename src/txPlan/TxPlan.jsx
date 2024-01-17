@@ -156,9 +156,9 @@ const FinalTxPlan = (tx, totals) => {
                                     </div>
                                 )
                             })}
-                            <div className='col-8 d-flex justify-content-between'>
-                                <h3>Total</h3>
-                                <h3>${total}</h3>
+                            <div className='my-2 col-8 d-flex justify-content-between'>
+                                <h3 className='fw-bold'>Total</h3>
+                                <h3 className='fw-bold'>${total}</h3>
                             </div>
                         </div>
                         <div className='full-width-container'>
@@ -200,10 +200,10 @@ const FinalTxPlan = (tx, totals) => {
                             </div>
                         )
                     })}
-                    <div className='col-11 d-flex fs-3 justify-content-between align-items-center'>
-                        <h3>Total</h3>
+                    <div className='col-11 d-flex fs-3 justify-content-between align-items-center fw-bold'>
+                        <h3 className='fw-bold'>Total</h3>
                         <p>=</p>
-                        <h3>${total}</h3>
+                        <h3 className='fw-bold'>${total}</h3>
                         <p>+</p>
                         <div className='col-3 border border-dark text-center px-1'>&nbsp;</div>
                         <p>=</p>
