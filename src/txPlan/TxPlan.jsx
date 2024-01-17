@@ -173,9 +173,9 @@ const FinalTxPlan = (tx, totals) => {
                     <h1 className='col-12 text-center text-decoration-underline'>Other Required Treatment</h1>
                     {finalTreatmentPlan.map((tx) => {
                         return (
-                            <div key={tx.id} className='col-6 d-flex justify-content-between'>
-                                <p className='fs-5 my-1'>{tx.name}</p>
-                                <p className='fs-5 my-1'>${tx.cost}</p>
+                            <div key={tx.id} className='col-6 mt-1 d-flex justify-content-between'>
+                                <p className='fs-5 m-0'>{tx.name}</p>
+                                <p className='fs-5 m-0'>${tx.cost}</p>
                             </div>
                         )
                     })}
@@ -191,8 +191,8 @@ const FinalTxPlan = (tx, totals) => {
                                     {txArray.map((tx) => {
                                         return (
                                             <div key={tx.id} className='col-2 d-flex flex-column px-3 justify-content-between align-items-center border border-dark'>
-                                                <p className='fs-5 m-1 text-center'>{tx.name}</p>
-                                                <p className='fs-5 m-1 text-center'>${tx.cost}</p>
+                                                <p className='fs-5 m-0 text-center'>{tx.name}</p>
+                                                <p className='fs-5 m-0 text-center'>${tx.cost}</p>
                                             </div>
                                         )
                                     })}
@@ -205,19 +205,19 @@ const FinalTxPlan = (tx, totals) => {
                         <p>=</p>
                         <h3>${total}</h3>
                         <p>+</p>
-                        <div className='border border-dark text-center px-1'>______________</div>
+                        <div className='col-3 border border-dark text-center px-1'>&nbsp;</div>
                         <p>=</p>
-                        <div className='border border-dark text-center px-1'>______________________</div>
+                        <div className='col-4 border border-dark text-center px-1'>&nbsp;</div>
                     </div>
                     <div className='col-11 fs-5'>
                         <p className='text-center'>This treatment plan and the procedures recommended are specifically formulated for you and your present conditions.
                             It is valid for 90 days and cannot be combined with any other offers or treatment.</p>
-                        <div className='d-flex flex-column align-items-center col-12 mt-5'>
-                            <div className='d-flex justify-content-between col-9 my-3'>
+                        <div className='d-flex flex-column align-items-center col-12 mt-4'>
+                            <div className='d-flex justify-content-between col-10 my-1'>
                                 <p className='border-top border-dark col-6'>Patient's Signature</p>
                                 <p className='border-top border-dark col-3'>Date</p>
                             </div>
-                            <div className='d-flex justify-content-between col-9 my-3'>
+                            <div className='d-flex justify-content-between col-10 my-2'>
                                 <p className='border-top border-dark col-6'>Treatment Coordinator's Signature</p>
                                 <p className='border-top border-dark col-3'>Date</p>
                             </div>
@@ -228,7 +228,7 @@ const FinalTxPlan = (tx, totals) => {
                         <img src={footerLogo} alt="My Dental Footer" />
                     </div>
                 </div>
-                <button className='btn btn-success' onClick={generatePdf}>Generate PDF</button>
+                <button className='btn btn-success my-3' onClick={generatePdf}>Generate PDF</button>
             </div>
         </div>
     );
