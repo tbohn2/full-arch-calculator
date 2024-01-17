@@ -146,7 +146,7 @@ const FinalTxPlan = (tx, totals) => {
                 return (
                     <div ref={ref} className="full-page my-1 border-start border-end border-3 border-dark d-flex flex-column justify-content-between align-items-center">
                         <div className='col-12 d-flex flex-column align-items-center'>
-                            <img src={headerLogo} alt="My Dental Header" className='full-width' />
+                            <img src={headerLogo} alt="My Dental Header" className='full-width-container' />
                             <h1 className='col-12 py-3 text-center text-decoration-underline'>Treatment Plan For {title}</h1>
                             {arch.map((tx) => {
                                 return (
@@ -161,13 +161,15 @@ const FinalTxPlan = (tx, totals) => {
                                 <h3>${total}</h3>
                             </div>
                         </div>
-                        <img src={footerLogo} alt="My Dental Footer" className='full-width ' />
+                        <div className='full-width-container'>
+                            <img src={footerLogo} alt="My Dental Footer" />
+                        </div>
                     </div>
                 )
             })}
             <div className='d-flex flex-column'>
                 <div ref={txPlan3Ref} className="full-page border-dark border-start border-end border-3 d-flex flex-column align-items-center justify-content-between">
-                    <img src={headerLogo} alt="My Dental Logo" className='full-width' />
+                    <img src={headerLogo} alt="My Dental Logo" className='full-width-container' />
                     <h1 className='col-12 text-center text-decoration-underline'>Other Required Treatment</h1>
                     {finalTreatmentPlan.map((tx) => {
                         return (
@@ -222,7 +224,9 @@ const FinalTxPlan = (tx, totals) => {
                         </div>
                         <p className='text-center'>*IV Sedation fee is paid directly to a licensed anesthesiologist.</p>
                     </div>
-                    <img src={footerLogo} alt="My Dental Footer" className='full-width' />
+                    <div className='full-width-container'>
+                        <img src={footerLogo} alt="My Dental Footer" />
+                    </div>
                 </div>
                 <button className='btn btn-success' onClick={generatePdf}>Generate PDF</button>
             </div>
