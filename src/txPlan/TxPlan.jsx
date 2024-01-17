@@ -129,7 +129,7 @@ const FinalTxPlan = (tx, totals) => {
             const height = pdfDocument.internal.pageSize.getHeight();
             const width = aspectRatio * height;
             // Change quality (number between 0 and 1) of the image
-            const image = canvas.toDataURL('image/jpeg', 0.3)
+            const image = canvas.toDataURL('image/jpeg', 0.7)
 
             pdfDocument.addImage(image, 'JPEG', 0, 0, width, height);
             if (i < canvasArray.length - 1) { pdfDocument.addPage() }
